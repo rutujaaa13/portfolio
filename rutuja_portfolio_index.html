@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rutuja Nalawade — Data Engineer and Data Analyst with 1+ year of hands-on AWS data engineering experience.">
+  <title>Rutuja Nalawade — Data Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root{
+      --bg:#080b10; --surface:#0e131a; --surface2:#111821;
+      --text:#e8edf3; --muted:#8995a3; --line:#202832;
+      --green:#79e2a0; --blue:#79b8ff; --orange:#ffbd72;
+      --max:1180px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--bg);color:var(--text);font-family:Inter,sans-serif;
+      line-height:1.7;overflow-x:hidden;
+    }
+    body:before{
+      content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;
+      background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size:44px 44px;mask-image:linear-gradient(to bottom,#000,transparent 85%);
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(var(--max),calc(100% - 44px));margin:auto}
+    .mono{font-family:"DM Mono",monospace}
+    .green{color:var(--green)} .blue{color:var(--blue)} .orange{color:var(--orange)}
+
+    nav{
+      position:fixed;top:0;left:0;width:100%;z-index:100;
+      background:rgba(8,11,16,.78);backdrop-filter:blur(14px);
+      border-bottom:1px solid transparent;transition:.25s;
+    }
+    nav.scrolled{border-color:var(--line)}
+    .nav-inner{height:70px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:800;letter-spacing:-.5px}.brand b{color:var(--green)}
+    .links{display:flex;gap:25px}
+    .links a{font-size:.82rem;color:var(--muted);font-weight:600}
+    .links a:hover,.links a.active{color:var(--text)}
+    .nav-cta{border:1px solid var(--line);padding:7px 12px;border-radius:7px;font-size:.78rem!important}
+    .nav-cta:hover{border-color:var(--green)}
+
+    header{min-height:100vh;display:flex;align-items:center;padding:110px 0 70px}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:center}
+    .hero-identity{display:flex;align-items:center;gap:24px;margin-bottom:24px}
+    .hero-photo-wrap{display:flex;align-items:center;flex:0 0 auto}
+    .hero-photo{
+      width:112px;height:112px;border-radius:50%;padding:3px;
+      background:linear-gradient(145deg,var(--green),#315d49 55%,#18221e);
+      box-shadow:0 0 0 1px rgba(121,226,160,.12),0 18px 45px rgba(0,0,0,.28);
+    }
+    .photo-placeholder{
+      width:100%;height:100%;border-radius:50%;
+      background:radial-gradient(circle at 50% 35%,#1a242e,#0b1016 72%);
+      border:1px solid #202a34;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      color:#627181;font-family:"DM Mono",monospace;font-size:.55rem;letter-spacing:.5px;
+      overflow:hidden;
+    }
+    .photo-placeholder i{font-size:2.2rem;margin-bottom:7px;color:#465464}
+    .hero-photo img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+
+    .terminal-label{
+      display:inline-flex;gap:10px;align-items:center;color:var(--muted);
+      font-size:.78rem;margin-bottom:22px
+    }
+    .terminal-label:before{content:"$";color:var(--green);font-weight:bold}
+    h1{
+      font-size:clamp(3.3rem,7vw,6.5rem);line-height:.95;letter-spacing:-5px;
+      margin-bottom:24px;font-weight:800
+    }
+    .hero h1 span{color:var(--green)}
+    .headline{font-size:clamp(1.1rem,2vw,1.45rem);font-weight:600;color:#c5ced8;max-width:720px}
+    .intro{color:var(--muted);max-width:700px;margin:18px 0 30px;font-size:1rem}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border-radius:7px;
+      border:1px solid var(--line);font-weight:700;font-size:.84rem;transition:.2s
+    }
+    .btn.primary{background:var(--green);color:#07100a;border-color:var(--green)}
+    .btn:hover{transform:translateY(-2px);border-color:#3a4654}
+    .btn.primary:hover{box-shadow:0 10px 30px rgba(121,226,160,.15)}
+
+    .terminal{
+      border:1px solid var(--line);border-radius:12px;background:#0b1016;
+      box-shadow:0 25px 80px rgba(0,0,0,.35);overflow:hidden
+    }
+    .terminal-top{height:38px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 13px;gap:7px}
+    .dot{width:8px;height:8px;border-radius:50%;background:#394451}
+    .terminal-title{margin-left:7px;color:#66727f;font-size:.7rem}
+    .terminal-body{padding:24px;font-family:"DM Mono",monospace;font-size:.78rem}
+    .prompt{color:var(--green)} .comment{color:#52606f}
+    .cmd{color:#d9e1ea}.output{color:#9caaba;margin:3px 0 14px;padding-left:15px}
+    .cursor{display:inline-block;width:7px;height:14px;background:var(--green);vertical-align:-2px;animation:blink 1s infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    section{padding:100px 0;border-top:1px solid rgba(255,255,255,.025)}
+    .section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:42px;gap:30px}
+    .section-no{font-family:"DM Mono";font-size:.72rem;color:var(--green)}
+    h2{font-size:clamp(2rem,4vw,3.3rem);letter-spacing:-2px;line-height:1.1;margin-top:7px}
+    .section-head p{max-width:530px;color:var(--muted);font-size:.9rem}
+
+    .about{display:grid;grid-template-columns:1.4fr .6fr;gap:22px}
+    .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:28px}
+    .about-copy{font-size:1.02rem;color:#b7c2ce}
+    .about-copy strong{color:var(--text)}
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .stat{background:var(--surface2);border:1px solid var(--line);padding:20px;border-radius:8px}
+    .stat strong{font-size:1.6rem;display:block;color:var(--green);line-height:1.2}
+    .stat span{font-size:.72rem;color:var(--muted)}
+
+    .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .skill h3{font-size:.9rem;margin-bottom:17px;color:#dce4ec}
+    .tags{display:flex;flex-wrap:wrap;gap:7px}
+    .tag{
+      border:1px solid var(--line);background:#0a0f15;border-radius:5px;
+      padding:6px 9px;font:400 .72rem "DM Mono";color:#9eabb9
+    }
+    .tag:hover{border-color:#3c4b5b;color:var(--green)}
+
+    .experience{display:grid;gap:18px}
+    .job{
+      background:var(--surface);border:1px solid var(--line);border-radius:10px;
+      padding:28px;position:relative
+    }
+    .job:hover{border-color:#303c49}
+    .job-top{display:flex;justify-content:space-between;gap:25px;margin-bottom:20px}
+    .job-role{font-size:1.2rem;font-weight:700}.job-company{color:var(--blue);font-size:.85rem;margin-top:3px}
+    .job-date{font:400 .72rem "DM Mono";color:var(--muted);white-space:nowrap}
+    .project{border-top:1px solid var(--line);padding-top:18px;margin-top:18px}
+    .project-name{font-weight:700;font-size:.94rem}.tech{font:400 .68rem "DM Mono";color:var(--green);margin:4px 0 9px}
+    ul{padding-left:18px;color:#9eabb8;font-size:.83rem}
+    li{margin:5px 0}
+
+    .impact{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .impact-card{background:var(--surface);border:1px solid var(--line);padding:24px;border-radius:9px}
+    .impact-number{font-size:2rem;font-weight:800;letter-spacing:-1px;color:var(--green)}
+    .impact-card h3{font-size:.85rem;margin:8px 0}
+    .impact-card p{font-size:.76rem;color:var(--muted)}
+
+    .edu{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .edu-card{background:var(--surface);border:1px solid var(--line);padding:24px;border-radius:9px}
+    .edu-card h3{font-size:1rem}.edu-card p{color:var(--muted);font-size:.82rem;margin-top:4px}
+
+    .contact{
+      background:linear-gradient(135deg,#0d1815,#0e141b);
+      border:1px solid #1d3327;border-radius:12px;padding:45px;
+      display:flex;justify-content:space-between;align-items:center;gap:30px
+    }
+    .contact h2{max-width:600px}.contact p{color:var(--muted);margin-top:10px;max-width:600px}
+    .contact-links{display:flex;gap:10px;flex-wrap:wrap}
+    footer{border-top:1px solid var(--line);padding:25px 0;color:#65717e;font:400 .7rem "DM Mono"}
+    .footer{display:flex;justify-content:space-between;gap:20px}
+
+    .reveal{opacity:0;transform:translateY(22px);transition:.65s ease}.reveal.show{opacity:1;transform:none}
+
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}.terminal{display:none}
+      .about{grid-template-columns:1fr}.skill-grid{grid-template-columns:1fr 1fr}.impact{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:620px){
+      .hero-identity{gap:16px;margin-bottom:20px}
+      .hero-photo{width:82px;height:82px}
+      .wrap{width:calc(100% - 28px)}.links{gap:12px}.links a:nth-child(-n+3){display:none}
+      h1{letter-spacing:-3px}.section-head{display:block}.section-head p{margin-top:12px}
+      .skill-grid,.impact,.edu{grid-template-columns:1fr}.job-top{display:block}.job-date{display:block;margin-top:6px}
+      .contact{padding:28px;display:block}.contact-links{margin-top:22px}.footer{display:block}.footer span{display:block;margin-top:5px}
+    }
+  </style>
+</head>
+
+<body>
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#home" class="brand">Rutuja Nalawade<span class="green">.</span></a>
+    <div class="links">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#experience">experience</a>
+      <a href="#impact">impact</a>
+      <a href="#education">education</a>
+      <a href="#contact" class="nav-cta">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header id="home">
+  <div class="wrap hero">
+    <div class="reveal">
+      <div class="hero-identity">
+        <div class="hero-photo-wrap">
+          <div class="hero-photo">
+            <img src="rutuja.jpg" alt="Rutuja Nalawade">
+          </div>
+        </div>
+        <div>
+          <div class="terminal-label mono">data-engineer</div>
+          <div class="mono" style="font-size:.72rem;color:#66727f;margin-top:-13px;">pune · india</div>
+        </div>
+      </div>
+
+      <h1>Building <span>data</span><br>pipelines.</h1>
+      <div class="headline">AWS · PySpark · Python · SQL · ETL · Data Analytics</div>
+      <p class="intro">
+        Data Engineer with 1+ year of hands-on experience building and supporting cloud ETL
+        pipelines on AWS, transforming raw data into clean, query-ready datasets for analytics.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="resume.pdf" download><i class="fa-solid fa-file-arrow-down"></i> Resume</a>
+        <a class="btn" href="mailto:rutujaknalawade@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
+        <a class="btn" href="tel:+919766176467"><i class="fa-solid fa-phone"></i> Contact</a>
+      </div>
+    </div>
+
+    <div class="terminal reveal">
+      <div class="terminal-top">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="terminal-title mono">rutuja@data-engineer:~</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">whoami</span></div>
+        <div class="output">Data Engineer | Data Analyst</div>
+
+        <div><span class="prompt">$</span> <span class="cmd">cat stack.txt</span></div>
+        <div class="output">AWS data stack<br>ETL & ELT pipelines<br>PySpark · Python · SQL<br>Data quality & analytics</div>
+
+        <div><span class="prompt">$</span> <span class="cmd">pipeline --status</span></div>
+        <div class="output">ingestion: <span class="green">✓</span><br>transformation: <span class="green">✓</span><br>validation: <span class="green">✓</span></div>
+
+        <div><span class="prompt">$</span> <span class="cmd">experience --years</span></div>
+        <div class="output">1+ year hands-on experience</div>
+
+        <span class="prompt">$</span> <span class="cursor"></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-no">01 / ABOUT</div><h2>Data first.<br>Analytics ready.</h2></div>
+      <p>Focused on turning raw datasets into reliable, structured and analytics-ready data using AWS cloud services.</p>
+    </div>
+
+    <div class="about">
+      <div class="panel reveal">
+        <p class="about-copy">
+          I am a <strong>Data Engineering & Data Analytics professional</strong> with 1+ year of
+          hands-on, project-based experience working with cloud ETL pipelines on AWS.
+          <br><br>
+          My experience includes <strong>AWS Glue, S3, PySpark, Python, SQL, Athena and Redshift</strong>,
+          along with exposure to event-driven ingestion using Kinesis, Kafka/MSK, SQS and SNS.
+          I have worked on data cleansing, validation, deduplication, standardization, data-lake
+          structuring and query-ready reporting datasets.
+          <br><br>
+          I enjoy learning modern data engineering practices and collaborating in Agile/Scrum teams
+          to deliver reliable data solutions.
+        </p>
+      </div>
+
+      <div class="stats reveal">
+        <div class="stat"><strong>1+</strong><span>YEAR DATA ENGINEERING</span></div>
+        <div class="stat"><strong>AWS</strong><span>CLOUD DATA STACK</span></div>
+        <div class="stat"><strong>9.64</strong><span>CGPA / 10</span></div>
+        <div class="stat"><strong>ETL</strong><span>PIPELINE EXPERIENCE</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-no">02 / STACK</div><h2>Technical toolkit.</h2></div>
+      <p>A practical data engineering stack centered around AWS, distributed processing, databases and analytics.</p>
+    </div>
+
+    <div class="skill-grid">
+      <div class="panel skill reveal">
+        <h3>LANGUAGES & PROCESSING</h3>
+        <div class="tags">
+          <span class="tag">PySpark</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Bash</span>
+          <span class="tag">Apache Spark</span><span class="tag">Hadoop</span><span class="tag">ETL / ELT</span>
+        </div>
+      </div>
+
+      <div class="panel skill reveal">
+        <h3>AWS DATA STACK</h3>
+        <div class="tags">
+          <span class="tag">S3</span><span class="tag">Glue</span><span class="tag">EMR</span><span class="tag">Lambda</span>
+          <span class="tag">Athena</span><span class="tag">Redshift</span><span class="tag">RDS</span><span class="tag">DynamoDB</span>
+          <span class="tag">EC2</span><span class="tag">CloudWatch</span>
+        </div>
+      </div>
+
+      <div class="panel skill reveal">
+        <h3>INGESTION & ORCHESTRATION</h3>
+        <div class="tags">
+          <span class="tag">Kinesis</span><span class="tag">Kafka / MSK</span><span class="tag">SQS</span><span class="tag">SNS</span>
+          <span class="tag">Step Functions</span><span class="tag">Airflow</span><span class="tag">EventBridge</span>
+        </div>
+      </div>
+
+      <div class="panel skill reveal">
+        <h3>DATA MODELING & QUALITY</h3>
+        <div class="tags">
+          <span class="tag">Star Schema</span><span class="tag">Fact Tables</span><span class="tag">Dimension Tables</span>
+          <span class="tag">Partitioning</span><span class="tag">Incremental Loads</span><span class="tag">Deduplication</span>
+          <span class="tag">Validation</span><span class="tag">Standardization</span>
+        </div>
+      </div>
+
+      <div class="panel skill reveal">
+        <h3>DATABASES & BI</h3>
+        <div class="tags">
+          <span class="tag">Amazon Redshift</span><span class="tag">MySQL</span><span class="tag">Athena</span>
+          <span class="tag">Excel</span><span class="tag">Power BI</span>
+        </div>
+      </div>
+
+      <div class="panel skill reveal">
+        <h3>SECURITY & COLLABORATION</h3>
+        <div class="tags">
+          <span class="tag">IAM</span><span class="tag">Secrets Manager</span><span class="tag">Git</span>
+          <span class="tag">Agile / Scrum</span><span class="tag">Team Collaboration</span><span class="tag">Problem Solving</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-no">03 / EXPERIENCE</div><h2>Hands-on data engineering.</h2></div>
+      <p>Internship experience focused on AWS ETL pipelines, data quality, orchestration and analytics-ready datasets.</p>
+    </div>
+
+    <div class="experience">
+      <article class="job reveal">
+        <div class="job-top">
+          <div>
+            <div class="job-role">Data Engineering Intern</div>
+            <div class="job-company">Code Icons Technology · Pune, India</div>
+          </div>
+          <div class="job-date">APR 2025 — MAY 2026</div>
+        </div>
+
+        <div class="project">
+          <div class="project-name">AWS ETL & Data Pipeline Engineering</div>
+          <div class="tech">AWS GLUE · PYSPARK · S3 · ATHENA · REDSHIFT · PYTHON · SQL</div>
+          <ul>
+            <li>Built and maintained ETL jobs using AWS Glue and PySpark under senior engineer supervision.</li>
+            <li>Converted raw property-listing datasets into clean, query-ready tables for analytics.</li>
+            <li>Organized S3 storage into Raw and Processed layers using team-defined partitioning and naming standards.</li>
+            <li>Wrote SQL queries in Athena and Redshift to support dashboard reporting and analysis.</li>
+            <li>Performed data validation, deduplication and standardization routines to improve dataset quality.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-name">Event-Driven Ingestion & Orchestration</div>
+          <div class="tech">KINESIS · KAFKA / MSK · SQS · SNS · LAMBDA · STEP FUNCTIONS · AIRFLOW · EVENTBRIDGE</div>
+          <ul>
+            <li>Explored streaming ingestion fundamentals using Kinesis Data Streams, Kafka/MSK, SQS and SNS.</li>
+            <li>Developed introductory AWS Lambda functions and used EC2 for lightweight validation jobs.</li>
+            <li>Assisted with Step Functions, EventBridge and Airflow DAG configuration for workflow orchestration.</li>
+            <li>Participated in daily stand-ups, sprint planning and retrospectives within an Agile/Scrum team.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-name">Security & Cloud Data Operations</div>
+          <div class="tech">IAM · AWS SECRETS MANAGER · CLOUDWATCH · S3</div>
+          <ul>
+            <li>Set up basic IAM roles and Secrets Manager entries for secure service access.</li>
+            <li>Worked alongside senior Data Engineers to deliver assigned pipeline tasks and follow team standards.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-top">
+          <div>
+            <div class="job-role">Full Stack Java Intern</div>
+            <div class="job-company">Sanyu Infotech Ltd · Pune, India</div>
+          </div>
+          <div class="job-date">DEC 2024 — JAN 2025</div>
+        </div>
+
+        <div class="project">
+          <div class="project-name">Backend & Database Support</div>
+          <div class="tech">JAVA · SPRING BOOT · REACT · MYSQL · REST API · GIT · POSTMAN</div>
+          <ul>
+            <li>Assisted with Java, Spring Boot and React development tasks to understand backend-to-application data flow.</li>
+            <li>Queried and maintained MySQL tables and helped integrate REST APIs.</li>
+            <li>Used Git for version control and Postman for API validation while collaborating with developers.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-no">04 / HIGHLIGHTS</div><h2>Numbers that matter.</h2></div>
+      <p>Key profile highlights directly supported by my resume and internship experience.</p>
+    </div>
+
+    <div class="impact">
+      <div class="impact-card reveal">
+        <div class="impact-number">1+</div>
+        <h3>Year of experience</h3>
+        <p>Hands-on Data Engineering internship experience building and supporting AWS ETL workflows.</p>
+      </div>
+      <div class="impact-card reveal">
+        <div class="impact-number">10+</div>
+        <h3>AWS services</h3>
+        <p>Exposure across storage, compute, processing, orchestration, analytics and security services.</p>
+      </div>
+      <div class="impact-card reveal">
+        <div class="impact-number">3</div>
+        <h3>Core data skills</h3>
+        <p>PySpark, Python and SQL used for cleansing, transformation, validation and querying.</p>
+      </div>
+      <div class="impact-card reveal">
+        <div class="impact-number">9.64</div>
+        <h3>Academic CGPA</h3>
+        <p>Strong academic foundation in Computer Science & Engineering from SPPU.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-no">05 / EDUCATION</div><h2>Foundation.</h2></div>
+      <p>Computer Science foundation supporting my transition into data engineering and analytics.</p>
+    </div>
+
+    <div class="edu">
+      <div class="edu-card reveal">
+        <h3>Bachelor of Engineering — Computer Science & Engineering</h3>
+        <p>Savitribai Phule Pune University (SPPU)</p>
+      </div>
+      <div class="edu-card reveal">
+        <h3>RMD Sinhgad School of Engineering</h3>
+        <p>Warje, Pune · Sep 2023 — Jun 2026 · CGPA: 9.64 / 10</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <div>
+        <div class="section-no">06 / CONTACT</div>
+        <h2>Let's build better data pipelines.</h2>
+        <p>
+          I am looking for a full-time Data Engineer opportunity where I can build on my AWS,
+          PySpark, Python and SQL experience while growing with a strong engineering team.
+        </p>
+      </div>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:rutujaknalawade@gmail.com"><i class="fa-solid fa-envelope"></i> Email Me</a>
+        <a class="btn" href="tel:+919766176467"><i class="fa-solid fa-phone"></i> +91 97661 76467</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer">
+    <span>© 2026 Rutuja Nalawade</span>
+    <span>AWS · PySpark · Python · SQL · Data Engineering</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById("nav");
+  window.addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 30));
+
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("show");
+    }),
+    {threshold:.1}
+  );
+  document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+
+  const links = document.querySelectorAll(".links a:not(.nav-cta)");
+  const sections = [...document.querySelectorAll("section[id]")];
+
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach(section => {
+      if (scrollY >= section.offsetTop - 180) current = section.id;
+    });
+    links.forEach(link =>
+      link.classList.toggle("active", link.getAttribute("href") === "#" + current)
+    );
+  });
+</script>
+</body>
+</html>
